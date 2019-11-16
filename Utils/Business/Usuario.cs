@@ -21,8 +21,9 @@ namespace Business
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
+            optionsBuilder.UseSqlServer("Server=NEIDY;User ID=sa;Password=123;Database=bd_MovieClub;");
             //optionsBuilder.UseSqlServer("Server=.\\LaptopALC2016;User ID=sa;Password=laptop123.;Database=db_facturacion;");
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;User ID=postgres;Password=laptop123.;Database=db_facturacion;");
+            //optionsBuilder.UseNpgsql("Host=localhost;Port=5432;User ID=postgres;Password=laptop123.;Database=db_facturacion;");
 
             _DBcontext = new ApplicationDbContext(optionsBuilder.Options);
             

@@ -15,5 +15,8 @@ namespace NetCoreApp2.Models
         }
 
         public DbSet<Entities.Movie> Movie { get; set; }
+
+        public DbSet<Entities.Proyecto> Proyecto { get; set; }
+
     }
 }

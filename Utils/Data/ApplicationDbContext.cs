@@ -55,7 +55,8 @@ namespace Data
         //------------------------------- Cliente
         public DbSet<Entities.Usuario> Usuario { get; set; }
         public DbSet<Entities.Movie> Movie { get; set; }
-        
+
+        public DbSet<Entities.Proyecto> Proyecto { get; set; }
 
 
     }

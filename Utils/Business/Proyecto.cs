@@ -1,6 +1,6 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Linq;
 
 using Data;
@@ -8,34 +8,35 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Business
 {
-    public class Movie
+    public class Proyecto
     {
+
         ApplicationDbContext _DBcontext;
 
         #region OPERACIONES BASICAS GUARDAR, MODIFICAR Y ELIMINAR
 
 
-        public Movie()
+        public Proyecto()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
-            optionsBuilder.UseSqlServer("Server=NEIDY;User ID=sa;Password=123;Database=bd_MovieClub;");
+            optionsBuilder.UseSqlServer("Server=NEIDY;User ID=sa;Password=123;Database=DeliveryTrackerDB;");
             //optionsBuilder.UseSqlServer("Server=.\\LaptopALC2016;User ID=sa;Password=laptop123.;Database=bd_MovieClub;");
-           // optionsBuilder.UseNpgsql("Host=localhost;Port=5432;User ID=postgres;Password=laptop123.;Database=db_facturacion;");
+            // optionsBuilder.UseNpgsql("Host=localhost;Port=5432;User ID=postgres;Password=laptop123.;Database=db_facturacion;");
 
             _DBcontext = new ApplicationDbContext(optionsBuilder.Options);
 
         }
 
 
-        public bool Guardar(Entities.Movie eMovie)
+        public bool Guardar(Entities.Proyecto eProyecto)
         {
             using (var oTrans = _DBcontext.Database.BeginTransaction())
             {
                 try
                 {
                     //tregistrando empresa
-                    this._DBcontext.Movie.Add(eMovie);
+                    this._DBcontext.Proyecto.Add(eProyecto);
                     this._DBcontext.SaveChanges();
 
                     oTrans.Commit();
@@ -49,18 +50,18 @@ namespace Business
             }
         }
 
-        public bool Modificar(Entities.Movie eMovie)
+        public bool Modificar(Entities.Proyecto eProyecto)
         {
             using (var oTrans = _DBcontext.Database.BeginTransaction())
             {
                 try
                 {
-                    Entities.Movie eMovieAux = this._DBcontext.Movie.FirstOrDefault(e => e.id_Movie == eMovie.id_Movie );
-                    eMovieAux.name = eMovie.name;
-                    eMovieAux.id_category = eMovie.id_category ;
-                    eMovieAux.year = eMovie.year ;
-                    
-                    this._DBcontext.Entry(eMovieAux).State = EntityState.Modified;
+                    Entities.Proyecto eProyectoAux = this._DBcontext.Proyecto.FirstOrDefault(e => e.ProyectoId == eProyecto.ProyectoId);
+                    eProyectoAux.Nombre = eProyecto.Nombre;
+                    eProyectoAux.Descripcion = eProyecto.Descripcion;
+                    eProyectoAux.UserId = eProyecto.UserId;
+
+                    this._DBcontext.Entry(eProyectoAux).State = EntityState.Modified;
                     this._DBcontext.SaveChanges();
 
 
@@ -82,7 +83,7 @@ namespace Business
             {
                 try
                 {
-                    Entities.Movie eMovie = this.GetMovie(id);
+                    Entities.Proyecto eProyecto = this.GetProyecto(id);
 
                     //oTrans.Commit();
                     return true;
@@ -98,11 +99,11 @@ namespace Business
         #endregion
 
         #region metodos get, listado, etc
-        public Entities.Movie GetMovie(int id_Movie)
+        public Entities.Proyecto GetProyecto(int id_Proyecto)
         {
             try
             {
-                return this._DBcontext.Movie.FirstOrDefault(e => e.id_Movie == id_Movie);
+                return this._DBcontext.Proyecto.FirstOrDefault(e => e.ProyectoId == id_Proyecto);
             }
             catch (Exception ex)
             {
@@ -110,11 +111,11 @@ namespace Business
             }
         }
 
-        public IQueryable<Entities.Movie> GetListaMovies()
+        public IQueryable<Entities.Proyecto> GetListaProyecto()
         {
             try
             {
-                return this._DBcontext.Movie.OrderByDescending(e => e.id_Movie);
+                return this._DBcontext.Proyecto.OrderByDescending(e => e.ProyectoId);
             }
             catch (Exception ex)
             {
@@ -122,34 +123,33 @@ namespace Business
             }
         }
 
-        public List<Entities.Usuario> GetListaUsuario()
-        {
-            try
-            {
-                return this._DBcontext.Usuario.OrderByDescending(e => e.id_usuario).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //public List<Entities.Usuario> GetListaUsuario()
+        //{
+        //    try
+        //    {
+        //        return this._DBcontext.Usuario.OrderByDescending(e => e.id_usuario).ToList();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
         #endregion
 
-        public Entities.Usuario Login(string correo, string contrasena)
-        {
-            try
-            {
-                Entities.Usuario eMovie = _DBcontext.Usuario.Where(u => u.user_name == correo && u.contrasena == contrasena).Single();
-                return eMovie;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //public Entities.Usuario Login(string correo, string contrasena)
+        //{
+        //    try
+        //    {
+        //        Entities.Usuario eMovie = _DBcontext.Usuario.Where(u => u.user_name == correo && u.contrasena == contrasena).Single();
+        //        return eMovie;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
     }
-
 
 
 }
