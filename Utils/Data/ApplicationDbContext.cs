@@ -60,6 +60,9 @@ namespace Data
 
         public DbSet<Entities.Entregador> Entregador { get; set; }
 
+        public DbSet<Entities.Pedido> Pedido { get; set; }
+
+
 
     }
 
