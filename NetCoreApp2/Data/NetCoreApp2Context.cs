@@ -18,5 +18,8 @@ namespace NetCoreApp2.Models
 
         public DbSet<Entities.Proyecto> Proyecto { get; set; }
 
+        public DbSet<Entities.Entregador> Entregador { get; set; }
+
+
     }
 }
